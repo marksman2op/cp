@@ -24,3 +24,12 @@ bool kahns() {    // Returns true if topological sort exists, else false
 
     return tsort.size() == n;
 }
+
+void dfs_tsort(int v) {    // Assumes graph is not cyclic, Run for each connected component
+    vis[v] = true;
+    for (int u : adj[v]) {
+        if (!vis[u])
+            dfs_tsort(u);
+    }
+    tsort.push_back(v);
+}
