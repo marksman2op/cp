@@ -2,7 +2,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
- 
+
+// https://www.spoj.com/problems/INVCNT/
+
 const int N = 2e5 + 5;
  
 int n, a[N];
