@@ -1,4 +1,4 @@
-// TKahn’s algorithm for Topological Sorting
+// Kahn’s algorithm for Topological Sorting
 vector<int> tsort;
 
 bool kahns() {    // Returns true if topological sort exists, else false
