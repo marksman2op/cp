@@ -14,5 +14,7 @@ void pre() {
 }
 
 int ncr(int n, int r) {
+    if(r < 0 || r > n)
+        return 0;
     return fac[n] * inv[r] % mod * inv[n - r] % mod;
 }
