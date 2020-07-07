@@ -1,6 +1,8 @@
 //IDE: https://www.jdoodle.com/compile-kotlin-online/
 import java.io.PrintWriter
 import java.util.*
+import java.util.Scanner
+import kotlin.math.*
 
 private fun readLn() = readLine()!! // string line
 private fun readInt() = readLn().toInt() // single int
