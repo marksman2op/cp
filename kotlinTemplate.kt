@@ -9,6 +9,7 @@ private fun readInts() = readStrings().map { it.toInt() } // list of ints
 
 private val OUTPUT_LINES = mutableListOf<String>()
 private fun outputLn(s: String) { OUTPUT_LINES += s }
+// println(OUTPUT_LINES.joinToString("\n"))
         
 fun main(args: Array<String>) {
     
