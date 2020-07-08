@@ -3,6 +3,8 @@
 using namespace std;
 #define int long long
 
+//https://www.spoj.com/problems/DQUERY/
+
 /* 
     Mo's Algorithm: 
     - Requirements
