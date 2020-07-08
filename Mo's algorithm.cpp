@@ -15,8 +15,9 @@ using namespace std;
     - SQRT decomidxition of array 
         - Divide the given input array into sqrt(N) blocks.
         - Each block will be N / sqrt(N) = sqrt(N) size.
-    - Optimal ordering of queries       
-        - A query belongs to P'th block if the opening of that query (i.e. L) fall in P'th block
+    - Optimal ordering of queries
+        - L1 ⁄ BLOCK_SIZE < L2 ⁄ BLOCK_SIZE
+        - L1 ⁄ BLOCK_SIZE == L2 ⁄ BLOCK_SIZE && R1 < R2
     
     - Sources: 
         - https://blog.anudeep2011.com/mos-algorithm/
