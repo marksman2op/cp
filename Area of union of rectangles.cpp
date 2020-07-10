@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+// Sky's the limit :)
+#include <bits/stdc++.h>
 using namespace std;
 #define int long long
 
@@ -8,125 +9,104 @@ using namespace std;
   Time Complexity: O(N log N), where N is the number of rectangles.
 */
 
-class Rectangle {
-    public:
-        int x1, y1, x2, y2;
-    
-        static Rectangle empty;
-        
-        Rectangle() {
-            x1 = y1 = x2 = y2 = 0;
-        }
-
-        Rectangle(int X1, int Y1, int X2, int Y2) {
-            x1 = X1; 
-            y1 = Y1;
-            x2 = X2; 
-            y2 = Y2;
-        }
-
-        Rectangle intersect(Rectangle R) {
-            if(R.x1 >= x2 || R.x2 <= x1 || R.y1 >= y2 || R.y2 <= y1) 
-                return empty;
-            return Rectangle(max(x1, R.x1), max(y1, R.y1), min(x2, R.x2), min(y2, R.y2));
-        }
-};
-
-struct Event {
-    int x, y1, y2, type;
-    Event() {}
-    Event(int x, int y1, int y2, int type) : x(x) , y1(y1) , y2(y2) , type(type) {}
-};
-
-bool operator < (const Event & A, const Event & B) {
-    return A.x < B.x;
+bool comp(vector<int> & a, vector<int> & b) {
+    if(a[2] != b[2])
+        return a[2] < b[2];
+    return a[0] < b[0];
 }
-
-const int MX = 1005;
 
 struct Node {
-    int prob, sum, ans;
-    Node() {}
-    Node(int prob, int sum, int ans) : prob(prob), sum(sum), ans(ans) {}
+    int start, end; 
+    int cnt, area; 
+    Node *left, *right;
+    Node(int s, int e, int cn, int ar, Node *l, Node *r) {
+        start = s;
+        end = e;
+        cnt = cn;
+        area = ar;
+        left = l;
+        right = r;
+    }
 };
 
-Node tree[4 * MX];
-int interval[MX];
-void build(int idx, int l, int r) {
-    tree[idx] = Node(0 , 0 , 0);
-    if (l == r) {
-        tree[idx].sum += interval[l];
-        return;
-    }
 
-    int mid = (l + r) / 2;
-    build(2 * idx, l, mid);
-    build(2 * idx + 1, mid + 1, r);
-    tree[idx].sum = tree[2 * idx].sum + tree[2 * idx + 1].sum;
+Node* Build(vector<int> & A, int s, int e) {        
+    if(s >= e)
+        return NULL;
+    if(e - s == 1)
+        return new Node(A[s], A[s + 1], 0, 0, NULL, NULL);
+        
+    int mid = (s + e) / 2;
+    Node *left = Build(A, s, mid);
+    Node *right = Build(A, mid, e);
+    return new Node(left->start, right->end, 0, 0, left, right);
 }
 
-int query(int idx){
-    if (tree[idx].prob) 
-        return tree[idx].sum;
-    return tree[idx].ans;
-}
+void Update(Node *r, int s, int e,  int val) {
+    if(!r)
+        return;
+    if(s >= r->end || e <= r->start)
+        return;
 
-int st, en, val;
-void update(int idx, int l, int r) {
-    if (st > r || en < l) 
-        return;
-    if (l >= st && r <= en) {
-        tree[idx].prob += val;
-        return;
+    if(s <= r->start && e >= r->end)
+        r->cnt += val;
+    else {
+        Update(r->left, s, e, val); 
+        Update(r->right, s, e, val);
     }
 
-    int mid = (l + r) / 2;
-    update(2 * idx, l, mid);
-    update(2 * idx + 1, mid + 1 , r);
-    tree[idx].ans = query(2 * idx) + query(2 * idx + 1);
+    if(r->cnt)
+        r->area = r->end - r->start;
+    else {
+        if(r->left && r->right)
+            r->area = r->left->area + r->right->area;
+        else
+            r->area = 0;
+    }
 }
 
-Rectangle Rectangle::empty = Rectangle();
-vector<Rectangle> rect;
-vector<int> sorted;
-vector<Event> sweep;
+int rectangleArea(vector<vector<int>> & rect) {
+    int n = rect.size();
+    if (n == 0)
+        return 0;
 
-void compression() {
-    for (auto p : rect) {
-        sorted.push_back(p.y1);
-        sorted.push_back(p.y2);
+    set<int> sx;
+    for (auto && v : rect) {
+        sx.insert(v[0]);
+        sx.insert(v[2]);           
     }
-
-    sort(sorted.begin(), sorted.end());
-    sorted.erase(unique(sorted.begin(), sorted.end()), sorted.end());
+            
+    vector<int> vx;
+    for (auto && x : sx)
+        vx.push_back(x);
+        
+    int res = 0;
+    Node *root = Build(vx, 0, vx.size() - 1);        
     
-    int sz = sorted.size();
-    for (int i = 0; i < (int)sorted.size() - 1; i++)
-        interval[i + 1] = sorted[i + 1] - sorted[i];
-
-    for (auto p : rect){
-        sweep.push_back(Event(p.x1, p.y1, p.y2, 1));
-        sweep.push_back(Event(p.x2, p.y1, p.y2, -1));
+    vector<vector<int>> vec;
+    for (auto && v : rect) {
+        vector<int> temp(4);
+        temp[0] = v[0];
+        temp[1] = v[2];
+        temp[2] = v[1];
+        temp[3] = 1;
+        vec.push_back(temp);
+        temp[2] = v[3];
+        temp[3] = -1;
+        vec.push_back(temp);            
     }
-    sort(sweep.begin() , sweep.end());
-
-    build(1, 1, sz - 1);
-}
-
-int ans;
-void linearSweep() {
-    if (sorted.empty() || sweep.empty()) 
-        return;
-
-    int lt = 0, sz = sorted.size();
-    for (int i = 0; i < (int)sweep.size(); i++){
-        ans += (sweep[i].x - lt) * query(1);
-        lt = sweep[i].x;
-        val = sweep[i].type;
-        st = lower_bound(sorted.begin() , sorted.end() , sweep[i].y1) - sorted.begin() + 1;
-        en = lower_bound(sorted.begin() , sorted.end() , sweep[i].y2) - sorted.begin();
-        update(1 , 1 , sz - 1);
+    sort(vec.begin(), vec.end(), comp);
+    
+    Update(root, vec[0][0], vec[0][1], vec[0][3]);
+    for (int i = 1; i < vec.size(); i++) {
+        int h = vec[i][2] - vec[i - 1][2];        
+        int w = root->area;            
+        if(h > 0)
+            res += (h * w);
+        Update(root, vec[i][0], vec[i][1], vec[i][3]);       
     }
+    
+    return res;
 }
 
 signed main() {
@@ -137,17 +117,19 @@ signed main() {
     while (T--) {
         int n;
         cin >> n;
+        vector<vector<int>> rect;
         for (int i = 0; i < n; i++) {
             int a, b, c, d;
             cin >> a >> b >> c >> d;
-            rect.push_back(Rectangle(a, b, c, d));
-        }
 
-        compression();
-        linearSweep();
+            rect.push_back({a, b, c, d});
+        }
         
+        int ans = rectangleArea(rect);
         cout << ans << '\n';
+        
     }
     
     return 0;
 }
+
