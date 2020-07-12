@@ -42,14 +42,14 @@ double dist(Point p, Point q) {
 double cross(Point p, Point q) {
     return p.x * q.y - p.y * q.x;
 }
-double abs2(Point a) {
-    return a.x * a.x + a.y * a.y;
+double abs2(Point p) {
+    return p.x * p.x + p.y * p.y;
 }
-double abs(Point a) {
-    return sqrtl(abs2(a));
+double abs(Point p) {
+    return sqrtl(abs2(p));
 }
-double angle(Point a) {
-	return atan2(a.y, a.x);
+double angle(Point p) {
+	return atan2(p.y, p.x);
 }
 ostream &operator<<(ostream &os, const Point &p) {
     return os << "(" << p.x << ", " << p.y << ")";
@@ -61,8 +61,9 @@ Point RotateCCW90(Point p) {
 Point RotateCW90(Point p) {
     return Point(p.y, -p.x);
 }
-Point RotateCCW(Point p, double t) {
-    return Point(p.x * cos(t) - p.y * sin(t), p.x * sin(t) + p.y * cos(t));
+// returns point rotated 'a' radians ccw around the origin
+Point RotateCCW(Point p, double a) {
+    return Point(p.x * cos(a) - p.y * sin(a), p.x * sin(a) + p.y * cos(a));
 }
 // project point c onto Line through a and b assuming a != b
 Point ProjectPointLine(Point a, Point b, Point c) {
