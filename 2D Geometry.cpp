@@ -49,7 +49,7 @@ double abs(Point a) {
     return sqrtl(abs2(a));
 }
 double angle(Point a) {
-	return atan2(y, x);
+	return atan2(a.y, a.x);
 }
 ostream &operator<<(ostream &os, const Point &p) {
     return os << "(" << p.x << ", " << p.y << ")";
