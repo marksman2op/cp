@@ -4,11 +4,12 @@ using namespace std;
 #define int long long
 #define double long double
 
+// 2D Geometry
 const double EPS = 1e-7;
 const double PI = acos(-1);
 
 struct Point {
-    double x,y;
+    double x, y;
     Point() {
     }
     Point(double x, double y) :
@@ -42,14 +43,14 @@ double dist(Point p, Point q) {
 double cross(Point p, Point q) {
     return p.x * q.y - p.y * q.x;
 }
-double abs2(Point p) {
+double disto2(Point p) {
     return p.x * p.x + p.y * p.y;
 }
-double abs(Point p) {
-    return sqrtl(abs2(p));
+double disto(Point p) {
+    return sqrtl(disto2(p));
 }
 double angle(Point p) {
-	return atan2(p.y, p.x);
+    return atan2(p.y, p.x);
 }
 ostream &operator<<(ostream &os, const Point &p) {
     return os << "(" << p.x << ", " << p.y << ")";
@@ -123,6 +124,9 @@ Point ComputeCircleCenter(Point a, Point b, Point c) {
     b = (a + b) / 2;
     c = (a + c) / 2;
     return ComputeLineIntersection(b, b + RotateCW90(a - b), c, c + RotateCW90(a - c));
+}
+double ComputeCircleRadius(Point a, Point b, Point c) {
+    return disto(b - a) * disto(c - b) * disto(a - c) / abs(cross(b - a, c - a)) / 2;
 }
 bool PointInPolygon(const vector<Point> &p, Point q) {
     bool c = 0;
@@ -224,7 +228,7 @@ int sign(Point a, Point b, Point c) {
     return (cross(b - a, c - b) < 0 ? -1 : 1);
 }
 double ArcArea(Point a, Point b, Point c, double r) {
-    double cosa = dot(a - c, b - c) / (abs(a - c) * abs(b - c));
+    double cosa = dot(a - c, b - c) / (disto(a - c) * disto(b - c));
     double ang = acos(cosa);
     if (ang > 2 * PI)
         ang = 2 * PI - ang;
