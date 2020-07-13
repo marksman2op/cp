@@ -128,6 +128,31 @@ Point ComputeCircleCenter(Point a, Point b, Point c) {
 double ComputeCircleRadius(Point a, Point b, Point c) {
     return disto(b - a) * disto(c - b) * disto(a - c) / abs(cross(b - a, c - a)) / 2;
 }
+// Computes the minimum circle that encloses a set of points. Expected O(n).
+pair<Point, double> MimimumEnlcosingCircle(vector<Point> v) {
+    shuffle(v.begin(), v.end(), mt19937(time(0)));
+    Point c = v[0];
+    double r = 0;
+    for (int i = 0; i < v.size(); i++) {
+        if (disto(c - v[i]) > r * MUL_EPS) {
+            c = v[i];
+            r = 0;
+            for (int j = 0; j < i; j++) {
+                if (disto(c - v[j]) > r * MUL_EPS) {
+                    c = (v[i] + v[j]) / 2;
+                    r = disto(c - v[i]);
+                    for (int k = 0; k < j; k++) {
+                        if (disto(c - v[k]) > r * MUL_EPS) {
+                            c = ComputeCircleCenter(v[i], v[j], v[k]);
+                            r = disto(c - v[i]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return {c, r};
+}
 bool PointInPolygon(const vector<Point> &p, Point q) {
     bool c = 0;
     int sz = p.size();
