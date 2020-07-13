@@ -31,9 +31,10 @@ bool check_composite(u64 n, u64 a, u64 d, int s) {
     return true;
 }
 
+// If n <= 1e18, it is enough to test a = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}
 bool MillerRabin(u64 n, int iter = 5) {  // Probabilistic in O(k * (log n) ^ 3)
-    if (n < 2 || n % 6 % 4 != 1)             // Can be improved to O(k * (log n) ^ 2) by using FFT-based multiplication  
-        return (n == 2 || n == 3);
+    if (n < 2 || n % 6 % 4 != 1)         // Can be improved to O(k * (log n) ^ 2) by using FFT-based multiplication  
+        return (n == 2 || n == 3);       // Deterministic variant works in O((log n) ^ 4) if FFT-based multiplication is used
  
     int s = __builtin_ctzll(n - 1);
     u64 d = n >> s;
