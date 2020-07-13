@@ -357,7 +357,7 @@ vector<Line> tangents(Circle a, Circle b) { // a != b
     vector<Line> ans;
     for (int i : {-1, 1}) {
         for (int j : {-1, 1})
-            tangents(b - a , a.r * i, b.r * j, ans);
+            tangents(b - a, a.r * i, b.r * j, ans);
     }
     int sz = ans.size();
     for (int i = 0; i < sz; i++)
