@@ -19,16 +19,16 @@ struct Point {
             x(p.x), y(p.y) {
     }
     Point operator +(const Point &p) const {
-        return Point(x+p.x,y+p.y);
+        return Point(x + p.x, y + p.y);
     }
     Point operator -(const Point &p) const {
-        return Point(x-p.x,y-p.y);
+        return Point(x - p.x, y - p.y);
     }
     Point operator *(double c) const {
-        return Point(x*c,y*c);
+        return Point(x * c, y * c);
     }
     Point operator /(double c) const {
-        return Point(x/c,y/c);
+        return Point(x / c, y / c);
     }
 };
 double dot(Point p, Point q) {
@@ -324,7 +324,7 @@ struct Circle: Point {
             Point(c.x, c.y), r(r) {
     }
     bool strictContains(Point p) {
-        return dist2((*this),p) < r * r;
+        return dist2((*this), p) < r * r;
     }
     bool onBorder(Point p) {
         return abs(dist2((*this), p) - r * r) < EPS;
