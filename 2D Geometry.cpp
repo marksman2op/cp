@@ -6,6 +6,7 @@ using namespace std;
 
 // 2D Geometry
 const double EPS = 1e-7;
+const double MUL_EPS = 1 + EPS;
 const double PI = acos(-1);
 
 struct Point {
