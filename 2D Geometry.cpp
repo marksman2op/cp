@@ -129,7 +129,14 @@ Point ComputeCircleCenter(Point a, Point b, Point c) {
 double ComputeCircleRadius(Point a, Point b, Point c) {
     return disto(b - a) * disto(c - b) * disto(a - c) / abs(cross(b - a, c - a)) / 2;
 }
-// Computes the minimum circle that encloses a set of points. Expected O(n).
+/*  
+    Minimal Enclosing Circle
+    - https://www.nayuki.io/page/smallest-enclosing-circle
+    - Every finite set of points with geometric span d has an enclosing circle with radius no greater than d / sqrt(3), 
+      and the circle is unique.
+    - Brute force algorithm : Check all combinations of 2/3 points to lie on circle boundary. O(n ^ 4)
+    - Below algorithm computes the minimum circle that encloses a set of points. Expected O(n).   
+*/
 pair<Point, double> MimimumEnlcosingCircle(vector<Point> v) {
     shuffle(v.begin(), v.end(), mt19937(time(0)));
     Point c = v[0];
