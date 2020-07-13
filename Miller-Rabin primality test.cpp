@@ -3,7 +3,7 @@
 using namespace std;
 #define int long long
 
-// Miller–Rabin primality test
+// Miller-Rabin primality test
 using u64 = uint64_t;
 using u128 = __uint128_t;
  
