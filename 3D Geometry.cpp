@@ -51,11 +51,11 @@ point3d operator*(double a, point3d b) {
 double dot(point3d a, point3d b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
-double norm(point3d a) {
+double abs(point3d a) {
     return dot(a, a);
 }
 double abs(point3d a) {
-    return sqrt(norm(a));
+    return sqrt(abs2(a));
 }
 double Projection(point3d a, point3d b) {
     return dot(a, b) / abs(b);
@@ -76,7 +76,6 @@ point3d PlaneIntersect(point3d a1, point3d n1, point3d a2, point3d n2, point3d a
     point3d d(dot(a1, n1), dot(a2, n2), dot(a3, n3));
     return point3d(TripleProduct(d, y, z), TripleProduct(x, d, z), TripleProduct(x, y, d)) / TripleProduct(n1, n2, n3);
 }
-
 
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
