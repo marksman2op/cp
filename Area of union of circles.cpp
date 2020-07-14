@@ -188,7 +188,7 @@ signed main() {
             cin >> C[i].o.x >> C[i].o.y >> C[i].r;
              
         double ans = UnionCircle(C, n);
-        cout << fixed << setprecision(3) << ans << '\n';
+        cout << fixed << setprecision(8) << ans << '\n';
     }
     
     return 0;
