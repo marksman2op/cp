@@ -3,6 +3,7 @@
 using namespace std;
 #define int long long
 
+// http://zobayer.blogspot.com/2010/11/matrix-exponentiation.html
 const int N = 105;
 const int MOD = 1000000007;
 
