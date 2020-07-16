@@ -57,6 +57,7 @@ ostream &operator<<(ostream &os, const Point &p) {
     return os << "(" << p.x << ", " << p.y << ")";
 }
 // rotate a point CCW or CW around the origin
+// If pivot is given, First subtract the pivot point (px, py), then rotate it, then add the point again.
 Point RotateCCW90(Point p) {
     return Point(-p.y, p.x);
 }
