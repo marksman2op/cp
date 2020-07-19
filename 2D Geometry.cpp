@@ -2,7 +2,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define double long double
 
 // 2D Geometry
 const double EPS = 1e-7;
@@ -20,16 +19,16 @@ struct Point {
             x(p.x), y(p.y) {
     }
     Point operator +(const Point &p) const {
-        return Point(x + p.x, y + p.y);
+        return Point(x+p.x,y+p.y);
     }
     Point operator -(const Point &p) const {
-        return Point(x - p.x, y - p.y);
+        return Point(x-p.x,y-p.y);
     }
     Point operator *(double c) const {
-        return Point(x * c, y * c);
+        return Point(x*c,y*c);
     }
     Point operator /(double c) const {
-        return Point(x / c, y / c);
+        return Point(x/c,y/c);
     }
 };
 double dot(Point p, Point q) {
@@ -44,11 +43,11 @@ double dist(Point p, Point q) {
 double cross(Point p, Point q) {
     return p.x * q.y - p.y * q.x;
 }
-double disto2(Point p) {
+double abs2(Point p) {
     return p.x * p.x + p.y * p.y;
 }
-double disto(Point p) {
-    return sqrtl(disto2(p));
+double abs(Point p) {
+    return sqrtl(abs2(p));
 }
 double angle(Point p) {
     return atan2(p.y, p.x);
@@ -57,7 +56,18 @@ ostream &operator<<(ostream &os, const Point &p) {
     return os << "(" << p.x << ", " << p.y << ")";
 }
 // rotate a point CCW or CW around the origin
-// If pivot is given, First subtract the pivot point (px, py), then rotate it, then add the point again.
+bool comp(Point a, Point b) {
+    return a.x < b.x || (a.x == b.x && a.y < b.y);
+}
+bool OrientationCollinear(Point a, Point b, Point c) {
+    return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) == 0;
+}
+bool OrientationCW(Point a, Point b, Point c) {
+    return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) < 0;
+}
+bool OrientationCCW(Point a, Point b, Point c) {
+    return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) > 0;
+}
 Point RotateCCW90(Point p) {
     return Point(-p.y, p.x);
 }
@@ -128,32 +138,25 @@ Point ComputeCircleCenter(Point a, Point b, Point c) {
     return ComputeLineIntersection(b, b + RotateCW90(a - b), c, c + RotateCW90(a - c));
 }
 double ComputeCircleRadius(Point a, Point b, Point c) {
-    return disto(b - a) * disto(c - b) * disto(a - c) / abs(cross(b - a, c - a)) / 2;
+    return abs(b - a) * abs(c - b) * abs(a - c) / abs(cross(b - a, c - a)) / 2;
 }
-/*  
-    Minimal Enclosing Circle
-    - https://www.nayuki.io/page/smallest-enclosing-circle
-    - Every finite set of points with geometric span d has an enclosing circle with radius no greater than d / sqrt(3), 
-      and the circle is unique.
-    - Brute force algorithm : Check all combinations of 2/3 points to lie on circle boundary. O(n ^ 4)
-    - Below algorithm computes the minimum circle that encloses a set of points. Expected O(n).   
-*/
+// Computes the minimum circle that encloses a set of points. Expected O(n).
 pair<Point, double> MimimumEnlcosingCircle(vector<Point> v) {
     shuffle(v.begin(), v.end(), mt19937(time(0)));
     Point c = v[0];
     double r = 0;
     for (int i = 0; i < v.size(); i++) {
-        if (disto(c - v[i]) > r * MUL_EPS) {
+        if (abs(c - v[i]) > r * MUL_EPS) {
             c = v[i];
             r = 0;
             for (int j = 0; j < i; j++) {
-                if (disto(c - v[j]) > r * MUL_EPS) {
+                if (abs(c - v[j]) > r * MUL_EPS) {
                     c = (v[i] + v[j]) / 2;
-                    r = disto(c - v[i]);
+                    r = abs(c - v[i]);
                     for (int k = 0; k < j; k++) {
-                        if (disto(c - v[k]) > r * MUL_EPS) {
+                        if (abs(c - v[k]) > r * MUL_EPS) {
                             c = ComputeCircleCenter(v[i], v[j], v[k]);
-                            r = disto(c - v[i]);
+                            r = abs(c - v[i]);
                         }
                     }
                 }
@@ -262,7 +265,7 @@ int sign(Point a, Point b, Point c) {
     return (cross(b - a, c - b) < 0 ? -1 : 1);
 }
 double ArcArea(Point a, Point b, Point c, double r) {
-    double cosa = dot(a - c, b - c) / (disto(a - c) * disto(b - c));
+    double cosa = dot(a - c, b - c) / (abs(a - c) * abs(b - c));
     double ang = acos(cosa);
     if (ang > 2 * PI)
         ang = 2 * PI - ang;
@@ -333,7 +336,7 @@ struct Circle: Point {
             Point(c.x, c.y), r(r) {
     }
     bool strictContains(Point p) {
-        return dist2((*this), p) < r * r;
+        return dist2((*this),p) < r * r;
     }
     bool onBorder(Point p) {
         return abs(dist2((*this), p) - r * r) < EPS;
@@ -379,6 +382,38 @@ vector<Line> tangents(Circle a, Circle b) { // a != b
     return res;
 }
 
+vector<Point> ConvexHull(vector<Point> &v) {
+    if (v.size() == 1) {
+        vector<Point> res = {v[0]};
+        return res; 
+    }
+
+    sort(v.begin(), v.end(), &comp);
+    Point p1 = v[0], p2 = v.back();
+    vector<Point> up, down;
+    up.push_back(p1);
+    down.push_back(p1);
+    for (int i = 1; i < (int)v.size(); i++) {
+        if (i == v.size() - 1 || OrientationCW(p1, v[i], p2)) {
+            while (up.size() >= 2 && !OrientationCW(up[up.size()-2], up[up.size()-1], v[i]))
+                up.pop_back();
+            up.push_back(v[i]);
+        }
+        if (i == v.size() - 1 || OrientationCCW(p1, v[i], p2)) {
+            while(down.size() >= 2 && !OrientationCCW(down[down.size()-2], down[down.size()-1], v[i]))
+                down.pop_back();
+            down.push_back(v[i]);
+        }
+    }
+
+    vector<Point> res;
+    for (int i = 0; i < (int)up.size(); i++)
+        res.push_back(up[i]);
+    for (int i = (int)down.size() - 2; i > 0; i--)
+        res.push_back(down[i]);
+    return res;
+}
+
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     
@@ -390,3 +425,4 @@ signed main() {
     
     return 0;
 }
+
