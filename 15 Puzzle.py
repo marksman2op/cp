@@ -1,6 +1,5 @@
 import random
  
- 
 class IDAStar:
     def __init__(self, h, neighbours):
         """ Iterative-deepening A* search.
@@ -11,11 +10,9 @@ class IDAStar:
         IN ASCENDING ORDER OF COST. descr is not used in the computation but can be used to
         efficiently store information about the path edges (e.g. up/left/right/down for grids).
         """
- 
         self.h = h
         self.neighbours = neighbours
         self.FOUND = object()
- 
  
     def solve(self, root, is_goal, max_cost=None):
         """ Returns the shortest path between the root and a given goal, as well as the total cost.
@@ -62,7 +59,6 @@ class IDAStar:
  
         return m
  
- 
 def slide_solved_state(n):
     return tuple(i % (n*n) for i in range(1, n*n+1))
  
@@ -107,7 +103,6 @@ def encode_cfg(cfg, n):
     for i in range(len(cfg)):
         r |= cfg[i] << (b*i)
     return r
- 
  
 def gen_wd_table(n):
     goal = [[0] * i + [n] + [0] * (n - 1 - i) for i in range(n)]
@@ -164,9 +159,6 @@ def slide_wd(n, goal):
  
         return d
     return h
- 
- 
- 
  
 if __name__ == "__main__":
     solved_state = slide_solved_state(4)
