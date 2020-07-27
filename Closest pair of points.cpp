@@ -70,9 +70,6 @@ void rec(int l, int r) {
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-
     int T = 1; 
     // cin >> T; 
     while (T--) {
@@ -93,6 +90,7 @@ signed main() {
         rec(0, n);
 
         int f = best_pair.first, s = best_pair.second;
+        cout << fixed << setprecision(8) << mindist << '\n';
     }
     
     return 0;
