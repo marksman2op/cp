@@ -1,7 +1,6 @@
 // Sky's the limit :)
 #include <bits/stdc++.h>
 using namespace std;
-// #define int long long
 
 /***************************************************************************************************************
 
