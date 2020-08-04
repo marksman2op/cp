@@ -21,8 +21,9 @@ int go(int pos, int cnt, bool flag) {
     if (pos == vec.size())
         return cnt == k;
 
-    if (dp[pos][cnt][flag] != -1)
-        return dp[pos][cnt][flag];
+    int &mem = dp[pos][cnt][flag];
+    if (mem != -1)
+        return mem;
 
     int limit = vec[pos];
     if (flag)
@@ -31,14 +32,12 @@ int go(int pos, int cnt, bool flag) {
     int res = 0;
     for (int i = 0; i <= limit; i++) {
         int newCnt = cnt + (i == d);
-        bool newFlag = flag;
-        if (flag == false && i < limit)
-            newFlag = true;
+        bool newFlag = flag || (i < limit);
 
         res += go(pos + 1, newCnt, newFlag);
     }
 
-    return dp[pos][cnt][flag] = res;
+    return mem = res;
 }
 
 int solve(int x) {
