@@ -9,6 +9,9 @@ using namespace std;
     - LCP (Longest Common Prefix) of two strings is the LCA (Lowest Common Ancestor) of their nodes.
     - Time Complexity: O(|key| * log(k))
     - Space complexity: O(Σ |strings|)
+
+    - https://www.quora.com/q/threadsiiithyderabad/Tutorial-on-Trie-and-example-problems
+    - https://ideone.com/FcLqQw
 */
 
 // https://codeforces.com/problemset/problem/455/B
