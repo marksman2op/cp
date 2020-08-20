@@ -4,7 +4,7 @@ using namespace std;
 
 // https://codeforces.com/contest/706/problem/D
 
-const int N = 200005 * 32;
+const int N = 200005 * 35;
 
 int trie[N][2];
 int cnt[N];
