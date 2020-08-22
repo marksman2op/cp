@@ -3,6 +3,7 @@ using namespace std;
 #define int long long
 
 // https://codeforces.com/contest/706/problem/D
+// https://codeforces.com/gym/101628/problem/K
 
 const int N = 200005 * 35;
 
