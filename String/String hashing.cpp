@@ -12,6 +12,8 @@ using namespace std;
 */
 
 // https://codeforces.com/gym/101628/problem/K
+// https://codeforces.com/problemset/problem/39/J (Exclude i'th char)
+// https://codeforces.com/contest/245/problem/H (Palindrome check)
 
 // Main Idea: Prefix hashing + binary search
 // I have used double hashing to reduce the probability of collisions.
