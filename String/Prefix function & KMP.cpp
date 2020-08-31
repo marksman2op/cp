@@ -8,7 +8,10 @@ using namespace std;
     - pi[i] =  Length of the longest proper prefix of the substring s[:i] which is also a suffix of this substring.
     - Proper prefix = Prefix that is not equal to the string itself
     - Works in O(n)
-    - Longest prefix suffix
+    - If pi[i] = x, it means [0..j) = (i-j..i] for all j = x, p[x], p[p[x]] and so on.
+    - Longest prefix suffix (lps)
+    - Z- function is more intuitive.
+
 
     KMP Algorithm
     - Make new string temp = s + "#" + t
