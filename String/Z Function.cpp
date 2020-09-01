@@ -29,6 +29,9 @@ vector<int> z_function(string s) {
 
 // https://codeforces.com/problemset/problem/432/D
 
+// https://www.codechef.com/problems/CHSTR
+// https://discuss.codechef.com/t/chstr-editorial/11135/28
+
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     
