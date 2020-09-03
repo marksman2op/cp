@@ -1,8 +1,9 @@
+// Sky's the limit :)
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
 
 // 2D Geometry
-// https://codeforces.com/blog/entry/48122
-// https://codeforces.com/blog/entry/48868
-
 const double EPS = 1e-7;
 const double MUL_EPS = 1 + EPS;
 const double PI = acos(-1);
@@ -18,16 +19,16 @@ struct Point {
             x(p.x), y(p.y) {
     }
     Point operator +(const Point &p) const {
-        return Point(x + p.x, y + p.y);
+        return Point(x+p.x,y+p.y);
     }
     Point operator -(const Point &p) const {
-        return Point(x - p.x, y - p.y);
+        return Point(x-p.x,y-p.y);
     }
     Point operator *(double c) const {
-        return Point(x * c, y * c);
+        return Point(x*c,y*c);
     }
     Point operator /(double c) const {
-        return Point(x / c, y / c);
+        return Point(x/c,y/c);
     }
 };
 double dot(Point p, Point q) {
@@ -412,3 +413,16 @@ vector<Point> ConvexHull(vector<Point> &v) {
         res.push_back(down[i]);
     return res;
 }
+
+signed main() {
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    
+    int T = 1; 
+    // cin >> T; 
+    while (T--) {
+        
+    }
+    
+    return 0;
+}
+
