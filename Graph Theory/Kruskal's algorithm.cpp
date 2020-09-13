@@ -1,5 +1,10 @@
-// MST - Kruskal with DSU -> Weighted Undirected graph, Will run on disconnected graph too
-// Time complexity: O(N * N + M log (M)) ≡ O(N * N log (N))
+/* 
+    MST 
+    - Kruskal with DSU -> Weighted Undirected graph, Will run on disconnected graph too
+    - https://stackoverflow.com/questions/1195872/when-should-i-use-kruskal-as-opposed-to-prim-and-vice-versa
+    - Time complexity: O(M log (N) + N + M) ≡ O(M log (N))
+*/
+
 struct Edge {
     int u, v, w;
     bool operator<(Edge const& other) {
