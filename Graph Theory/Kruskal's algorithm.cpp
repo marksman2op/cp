@@ -1,4 +1,5 @@
 // MST - Kruskal with DSU -> Weighted Undirected graph, Will run on disconnected graph too
+// Time complexity: O(N * N + M log (M)) ≡ O(N * N log (N))
 struct Edge {
     int u, v, w;
     bool operator<(Edge const& other) {
@@ -6,12 +7,13 @@ struct Edge {
     }
 };
 
+const int N = 1e6 + 5;
 vector<Edge> edges(N);
-vector<int> rnk(N);
+vector<int> rank(N), par(N);
 
 void init(int v) {
     par[v] = v;
-    rnk[v] = 0;
+    rank[v] = 0;
 }
 
 int find(int v) {
@@ -24,11 +26,11 @@ void union_sets(int a, int b) {
     a = find(a);
     b = find(b);
     if (a != b) {
-        if (rnk[a] < rnk[b])
+        if (rank[a] < rank[b])
             swap(a, b);
         par[b] = a;
-        if (rnk[a] == rnk[b])
-            rnk[a]++;
+        if (rank[a] == rank[b])
+            rank[a]++;
     }
 }
 

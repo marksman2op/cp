@@ -1,5 +1,9 @@
-// LCA using Binary Lifting
-// Distance between 2 nodes = lvl[u] + lvl[v] - 2 * lvl[lca(u, v)]
+/*  
+    LCA using Binary Lifting
+    Distance between 2 nodes = lvl[u] + lvl[v] - 2 * lvl[lca(u, v)]
+    Find k-th ancestor: https://www.hackerearth.com/challenges/competitive/data-structures-and-algorithms-coding-contest-september-2020/algorithm/family-tree-of-aman-f2e011b3/
+*/
+
 int l;
 vector<vector<int>> anc;     // anc[i][j] is the 2^j-th ancestor of the node i 
 
