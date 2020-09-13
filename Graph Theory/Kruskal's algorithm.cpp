@@ -1,8 +1,15 @@
 /* 
-    MST 
-    - Kruskal with DSU -> Weighted Undirected graph, Will run on disconnected graph too
+    MST with Krushkal's Algorithm 
+    - The graph must be: Weighted, Undirected, Connected/Disconnected
+    - Runs for disconnected graph without any modifications.
+    
+    - Steps:
+        - Sort all the edges in non-decreasing order of their weight.
+        - Pick the smallest edge. Check if it forms a cycle with the spanning-tree formed so far. If the cycle is not formed, include this edge. Else, discard it.
+        - Repeat step#2 until there are (V - 1) edges in the spanning tree.
+
     - https://stackoverflow.com/questions/1195872/when-should-i-use-kruskal-as-opposed-to-prim-and-vice-versa
-    - Time complexity: O(M log (N) + N + M) ≡ O(M log (N))
+    - Time complexity: O(E log (V) + V + E) ≡ O(E log (V))
 */
 
 struct Edge {
