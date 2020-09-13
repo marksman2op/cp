@@ -1,3 +1,9 @@
+// Sky's the limit :)
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+  
 /* 
     MST with Krushkal's Algorithm 
     - The graph must be: Weighted, Undirected, Connected/Disconnected
@@ -7,7 +13,6 @@
         - Sort all the edges in non-decreasing order of their weight.
         - Pick the smallest edge. Check if it forms a cycle with the spanning-tree formed so far. If the cycle is not formed, include this edge. Else, discard it.
         - Repeat step#2 until there are (V - 1) edges in the spanning tree.
-
     - https://stackoverflow.com/questions/1195872/when-should-i-use-kruskal-as-opposed-to-prim-and-vice-versa
     - Time complexity: O(E log (V) + V + E) ≡ O(E log (V))
 */
@@ -19,13 +24,14 @@ struct Edge {
     }
 };
 
-const int N = 1e6 + 5;
-vector<Edge> edges(N);
-vector<int> rank(N), par(N);
+const int N = 1e5 + 5;
+int n, m;
+vector<Edge> edges;
+vector<int> rnk(N), par(N);
 
 void init(int v) {
     par[v] = v;
-    rank[v] = 0;
+    rnk[v] = 0;
 }
 
 int find(int v) {
@@ -38,11 +44,11 @@ void union_sets(int a, int b) {
     a = find(a);
     b = find(b);
     if (a != b) {
-        if (rank[a] < rank[b])
+        if (rnk[a] < rnk[b])
             swap(a, b);
         par[b] = a;
-        if (rank[a] == rank[b])
-            rank[a]++;
+        if (rnk[a] == rnk[b])
+            rnk[a]++;
     }
 }
 
@@ -61,4 +67,26 @@ void kruskal() {
             union_sets(e.u, e.v);
         }
     }
+
+    cout << cost << '\n';
 }
+
+signed main() {
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    
+    int T = 1; 
+    // cin >> T; 
+    while (T--) {
+        cin >> n >> m;
+        while (m--) {
+            int u, v, w;
+            cin >> u >> v >> w;
+            edges.push_back({u, v, w});
+        }
+
+        kruskal();
+    }
+    
+    return 0;
+}
+
