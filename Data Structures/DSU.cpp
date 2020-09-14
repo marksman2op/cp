@@ -1,9 +1,12 @@
-// Disjoint Set Union / Unoin Find (DSU)
 // Sky's the limit :)
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
 
+/*
+    Disjoint Set Union / Union Find (DSU)
+    For 1D/2D DSU: https://codeforces.com/contest/506/problem/D
+*/
 const int N = 1e5 + 5;
 
 int par[N], sz[N];

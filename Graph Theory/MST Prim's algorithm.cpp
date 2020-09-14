@@ -4,7 +4,7 @@ using namespace std;
 #define int long long
 
 /*
-    MST using Prims Algorithm
+    MST using Prim's Algorithm
     - The graph must be: Weighted, Undirected, Connected
     - By running Prim's algorithm separately for each connected component of the graph, it can be used to find the minimum spanning forest.
     
@@ -16,17 +16,17 @@ using namespace std;
 // Sparse Graph
 // const int N = 1005; 
 // const int INF = 1e18; // Weight INF means there is no edge
-
+// 
 // struct Edge {
 //     int w = INF, to = -1;
 //     bool operator<(Edge const& other) const {
 //         return make_pair(w, to) < make_pair(other.w, other.to);
 //     }
 // };
-
+// 
 // int n, m;
 // vector<vector<Edge>> adj;
-
+// 
 // void prim_sparse() {
 //     int total_weight = 0;
 //     vector<Edge> min_e(n);
@@ -44,7 +44,7 @@ using namespace std;
 //         selected[v] = true;
 //         total_weight += q.begin()->w;
 //         q.erase(q.begin());
-
+// 
 //         for (Edge e : adj[v]) {
 //             if (!selected[e.to] && e.w < min_e[e.to].w) {
 //                 q.erase({min_e[e.to].w, e.to});
@@ -104,6 +104,7 @@ signed main() {
     int T = 1; 
     // cin >> T; 
     while (T--) {
+        // Dense graph
         cin >> n >> m;
         adj = vector<vector<int>> (n, vector<int> (n, INF));
         while (m--) {
@@ -115,7 +116,7 @@ signed main() {
 
         prim_dense();
         
-        // Sparse
+        // Sparse graph
         // cin >> n >> m; 
         // adj = vector<vector<Edge>> (n, vector<Edge> ());
         // while (m--) {
@@ -125,7 +126,7 @@ signed main() {
         //     adj[u].push_back({w, v});
         //     adj[v].push_back({w, u});
         // }
-
+        // 
         // prim_sparse();
         
     }
