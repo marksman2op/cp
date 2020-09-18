@@ -3,6 +3,13 @@
 using namespace std;
 #define int long long
 
+/*
+    Sieve
+    - https://codeforces.com/blog/entry/54090
+    - https://codeforces.com/blog/entry/22229
+    - https://codeforces.com/blog/entry/8989
+*/
+
 const int N = 1e6 + 5;
 
 int spf[N], mu[N];
