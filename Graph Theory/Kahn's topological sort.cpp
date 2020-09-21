@@ -1,7 +1,7 @@
 // Kahn’s algorithm for Topological Sorting
 vector<int> tsort;
 
-bool kahns() {    // Returns true if topological sort exists, else false
+bool kahn() {    // Returns true if topological sort exists, else false
     priority_queue<int> pq; // To find any topological sort
     // priority_queue<int, vector<int>, greater<int> > pq; // To find lexographically smallest topological sort
     

@@ -9,6 +9,7 @@ using namespace std;
     - https://codeforces.com/blog/entry/68139
 
     Problems
+    - https://cses.fi/problemset/task/1130/
     - https://codeforces.com/contest/1187/problem/E
     - https://codeforces.com/contest/219/problem/D
     - https://codeforces.com/contest/1324/problem/F

@@ -8,7 +8,10 @@ using namespace std;
     - anc[v][k] is the 2^k-th ancestor of the node v
     - anc[v][k + 1] = anc[anc[v][k]][k]
     Distance between 2 nodes = lvl[u] + lvl[v] - 2 * lvl[lca(u, v)]
-    Find k-th ancestor: https://www.hackerearth.com/challenges/competitive/data-structures-and-algorithms-coding-contest-september-2020/algorithm/family-tree-of-aman-f2e011b3/
+    
+    Problems
+    - https://www.hackerearth.com/challenges/competitive/data-structures-and-algorithms-coding-contest-september-2020/algorithm/family-tree-of-aman-f2e011b3/
+    - https://www.spoj.com/problems/DISQUERY/ 
 */
 
 const int N = 1e5 + 5;

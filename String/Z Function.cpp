@@ -7,10 +7,18 @@ using namespace std;
     Z function
     - Z[i] = length of the longest substring starting from S[i] which is also a prefix of S
     - z[i] = x means substrings [0..j) [i..i+j) are equals for all j from 0 to (x - 1).
+    - Prefix of length i is a period of the string if, i + z[i] = n.
+    - Prefix of length i is also a suffix if, z[n + 1 - i] == i
     - https://codeforces.com/blog/entry/3107
     - Z-function and prefix-function are equivalent (one can  transform Z<->prefix in O(n)). 
     - https://codeforces.com/blog/entry/9612
     - Often it is easier to think in terms of Z-function to solve a problem.
+
+    Problems
+    - https://cses.fi/problemset/task/1733/
+    - https://codeforces.com/problemset/problem/432/D
+    - https://www.codechef.com/problems/CHSTR
+    - https://discuss.codechef.com/t/chstr-editorial/11135/28
 */
 
 vector<int> z_function(string s) {
@@ -26,11 +34,6 @@ vector<int> z_function(string s) {
     }
     return z;
 }
-
-// https://codeforces.com/problemset/problem/432/D
-
-// https://www.codechef.com/problems/CHSTR
-// https://discuss.codechef.com/t/chstr-editorial/11135/28
 
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
