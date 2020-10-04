@@ -3,8 +3,6 @@
 using namespace std;
 #define int long long
 
-//https://www.spoj.com/problems/DQUERY/
-
 /* 
     Mo's Algorithm: 
     - Requirements
@@ -16,13 +14,18 @@ using namespace std;
         - Divide the given input array into sqrt(N) blocks.
         - Each block will be N / sqrt(N) = sqrt(N) size.
     - Optimal ordering of queries
-        - L1 ⁄ BLOCK_SIZE < L2 ⁄ BLOCK_SIZE
-        - L1 ⁄ BLOCK_SIZE == L2 ⁄ BLOCK_SIZE && R1 < R2
+        - L1 / BLOCK_SIZE < L2 / BLOCK_SIZE
+        - L1 / BLOCK_SIZE == L2 / BLOCK_SIZE && R1 < R2
     
     - Sources: 
         - https://blog.anudeep2011.com/mos-algorithm/
         - https://www.hackerearth.com/practice/notes/mos-algorithm/
 
+    - Problems:
+      - https://www.spoj.com/problems/DQUERY/
+      - https://codeforces.com/problemset/problem/86/D
+      - https://codeforces.com/contest/375/problem/D
+      - https://codeforces.com/blog/entry/23005
 */
 
 const int N = 1e6 + 5;
@@ -37,6 +40,7 @@ bool comp(const pair<pair<int, int>, int> &x, const pair<pair<int, int>, int> &y
     if (rx != ry)
         return rx < ry;
     return x.first.second < y.first.second;
+    // return ((x.first.first / sz) & 1) ?  x.first.second < y.first.second :  x.first.second > y.first.second; // More efficient
 }
 
 // When updating, first nullify current idxitions affect and then update.
@@ -59,7 +63,7 @@ signed main() {
     // cin >> T; 
     while (T--) {
         cin >> n;
-        sz = sqrt(n);
+        sz = sqrt(n); // Sometimes 2 * sqrt(n) is more efficient. You may keep it constant like 300.
         arr.resize(n);
         for (int i = 0; i < n; i++)
             cin >> arr[i];
@@ -80,21 +84,20 @@ signed main() {
             int qr = queries[i].first.second;
             int idx = queries[i].second;
 
-            //Moving ml and mr
-            while(mr < qr) {
+            // Moving ml and mr
+            while (mr < qr) {
                 mr++;
                 add(arr[mr]);
             }
-            while(mr > qr) {
+            while (mr > qr) {
                 remove(arr[mr]);
                 mr--;
             }
-
-            while(ml < ql) {
+            while (ml < ql) {
                 remove(arr[ml]);
                 ml++;
             }
-            while(ml > ql) {
+            while (ml > ql) {
                 ml--;
                 add(arr[ml]);
             }
@@ -109,4 +112,3 @@ signed main() {
     
     return 0;
 }
-
