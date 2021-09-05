@@ -16,6 +16,7 @@ using namespace std;
     - https://codeforces.com/contest/877/problem/E
     - https://codeforces.com/problemset/problem/620/E
     - https://codeforces.com/contest/466/problem/E
+    - https://www.codechef.com/CDMN21A/problems/SHADES
 */
 
 const int N = 1e5 + 5;
