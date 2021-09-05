@@ -3,6 +3,11 @@
 using namespace std;
 #define int long long
 
+/*
+    Segment tree problems:
+    - https://www.codechef.com/problems/SHADES/
+*/
+
 const int N = 2e5 + 5;
 const int MX = 1e7 + 5;
 
