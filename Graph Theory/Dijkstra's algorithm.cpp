@@ -13,6 +13,7 @@ void dijkstra(int s) {
     while (!pq.empty()) {
         int v = pq.top().second;
         int dv = pq.top().first;
+        // one condtition is missing here, leads to higher time complexity
         pq.pop();
 
         for (auto edge : adjd[v]) {
