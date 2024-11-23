@@ -3,9 +3,7 @@ struct Combinatorics {
     const int n, mod;
     vector<int> fact, invFact;
 
-    Combinatorics(int n, int mod) : n(n), mod(mod) {
-        fact.resize(n + 1);
-        invFact.resize(n + 1);
+    Combinatorics(int n, int mod) : n(n), mod(mod), fact(n + 1), invFact(n + 1) {
         fact[0] = invFact[0] = invFact[1] = 1;
         for (int i = 1; i <= n; i++) {
             fact[i] = (long)i * fact[i - 1] % mod;
